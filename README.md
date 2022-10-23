@@ -1,4 +1,4 @@
-# TWRP Device configuration for Motorola Moto G9 Power
+# Device configuration for Motorola Moto G20
 
 ## Device specification
 
