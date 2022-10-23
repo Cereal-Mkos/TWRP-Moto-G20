@@ -1,0 +1,137 @@
+#line 1 "device/sprd/mpool/sepolicy/vendor/property_contexts"
+persist.vendor.avc.               u:object_r:vendor_avc_prop:s0
+
+##########################
+# property service keys
+#
+#persist.vendor.delta.time u:object_r:system_prop:s0
+persist.vendor.ylog_lite.   u:object_r:vendor_ylog_lite_pprop:s0
+vendor.ylog_lite.   u:object_r:vendor_ylog_lite_prop:s0
+persist.vendor.radio.    u:object_r:vendor_radio_prop:s0
+ro.vendor.modem.         u:object_r:vendor_radio_prop:s0
+ro.vendor.radio.         u:object_r:vendor_radio_prop:s0
+vendor.radio.            u:object_r:vendor_radio_prop:s0
+vendor.ril.              u:object_r:vendor_radio_prop:s0
+vendor.sim.              u:object_r:vendor_radio_prop:s0
+vendor.data.             u:object_r:vendor_radio_prop:s0
+vendor.net.              u:object_r:vendor_radio_prop:s0
+vendor.bluetooth.        u:object_r:vendor_bt_prop:s0
+persist.vendor.sys.      u:object_r:vendor_sys_prop:s0
+vendor.sys.              u:object_r:vendor_sys_prop:s0
+ro.vendor.media          u:object_r:vendor_video_prop:s0
+vendor.h264dec           u:object_r:vendor_video_prop:s0
+vendor.h264enc           u:object_r:vendor_video_prop:s0
+vendor.m4vdec            u:object_r:vendor_video_prop:s0
+persist.vendor.sysdump   u:object_r:vendor_systemdebuggerd_prop:s0
+vendor.debug.sysdump.enabled   u:object_r:vendor_systemdebuggerd_prop:s0
+# For thermal
+
+# For Power
+persist.vendor.power.            u:object_r:vendor_power_prop:s0
+
+# For aprd
+persist.vendor.aprservice.enabled       u:object_r:vendor_aprd_prop:s0
+# For Camera
+vendor.cam.            u:object_r:vendor_camera_prop:s0
+ro.vendor.cam.         u:object_r:vendor_camera_prop:s0
+persist.vendor.cam.    u:object_r:vendor_camera_prop:s0
+# For FaceID
+persist.vendor.faceid.       u:object_r:vendor_faceid_prop:s0
+# For Hwui
+ro.vendor.hwui.    u:object_r:vendor_hwui_prop:s0
+# For Wcnd
+persist.vendor.wcnd.   u:object_r:vendor_wcnd_prop:s0
+# For slogmodem
+persist.vendor.modem.  u:object_r:vendor_modem_prop:s0
+ro.vendor.product.partitionpath    u:object_r:vendor_product_prop:s0
+# For engineerMode
+persist.vendor.eng.   u:object_r:vendor_eng_prop:s0
+
+vendor.hwc.drm.device  u:object_r:vendor_hwc_prop:s0
+# For GPU
+ro.vendor.gpu.boost             u:object_r:vendor_gpu_prop:s0
+ro.vendor.gpu.boost.path        u:object_r:vendor_gpu_prop:s0
+ro.vendor.gpu.boost.sf          u:object_r:vendor_gpu_prop:s0
+ro.vendor.gpu.boost.sf.level    u:object_r:vendor_gpu_prop:s0
+ro.vendor.hwui.platform     u:object_r:vendor_hwui_prop:s0
+# For powerhint
+# ro.vendor.powerhint.enable u:object_r:vendor_powerhint_prop:s0
+
+# For sf
+ro.vendor.sf.   u:object_r:vendor_sf_prop:s0
+ro.vendor.gpu.   u:object_r:vendor_gpu_prop:s0
+
+ro.vendor.sf.fbc  u:object_r:vendor_sf_fbc_prop:s0
+ro.vendor.gpu.fbc  u:object_r:vendor_gpu_fbc_prop:s0
+ro.vendor.vsp.fbc  u:object_r:vendor_vsp_fbc_prop:s0
+ro.vendor.whale2.afbc  u:object_r:vendor_whale2_afbc_prop:s0
+#line 1 "device/sprd/mpool/module/audio/msepolicy/vendor/property_contexts"
+#auido sub-system use
+persist.vendor.media.dump.path u:object_r:vendor_audio_prop:s0
+persist.vendor.media.dump.switch u:object_r:vendor_audio_prop:s0
+persist.vendor.media.audiofw.devices.dump u:object_r:vendor_audio_prop:s0
+persist.vendor.media.audiofw.dump u:object_r:vendor_audio_prop:s0
+persist.vendor.audioloop.test.result  u:object_r:vendor_audio_prop:s0
+persist.vendor.modem.t.enable  u:object_r:vendor_audio_prop:s0
+persist.vendor.modem.w.enable  u:object_r:vendor_audio_prop:s0
+persist.vendor.modem.tl.enable  u:object_r:vendor_audio_prop:s0
+persist.vendor.modem.lf.enable  u:object_r:vendor_audio_prop:s0
+persist.vendor.modem.l.enable  u:object_r:vendor_audio_prop:s0
+persist.vendor.audio.nv  u:object_r:vendor_audio_prop:s0
+ro.vendor.audio_tunning.nr u:object_r:vendor_audio_prop:s0
+ro.vendor.audio_tunning.dual_spk u:object_r:vendor_audio_prop:s0
+ro.vendor.digital.fm.support  u:object_r:vendor_audio_prop:s0
+ro.vendor.audio.product.hardware  u:object_r:vendor_audio_prop:s0
+persist.vendor.media.audio.dump  u:object_r:vendor_audio_prop:s0
+persist.vendor.media.systemready.state u:object_r:vendor_audio_prop:s0
+persist.vendor.audio.boot_completed  u:object_r:vendor_audio_prop:s0
+#line 1 "device/sprd/mpool/module/camera/msepolicy/vendor/property_contexts"
+persist.vendor.cam.ip                      u:object_r:vendor_camera_prop:s0
+ro.vendor.camera.req.fmq.size              u:object_r:vendor_camera_ro_prop:s0
+ro.vendor.camera.res.fmq.size              u:object_r:vendor_camera_ro_prop:s0
+#line 1 "device/sprd/mpool/module/thermal/msepolicy/vendor/property_contexts"
+persist.vendor.thermal. u:object_r:vendor_thermald_prop:s0
+persist.vendor.bsservice. u:object_r:vendor_thermald_prop:s0
+#line 1 "device/sprd/mpool/module/gpu/msepolicy/vendor/property_contexts"
+# For hal_graphics_composer_default
+
+# For hal_graphics_allocator_default
+#line 1 "device/sprd/mpool/module/memory/msepolicy/vendor/property_contexts"
+ro.vendor.lmk. u:object_r:vendor_lmk_prop:s0
+#line 1 "device/sprd/mpool/module/wcn/msepolicy/vendor/property_contexts"
+vendor.wlan.driver.version                      u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version                    u:object_r:vendor_wifi_version:s0
+#line 1 "device/sprd/mpool/module/engpc/msepolicy/vendor/property_contexts"
+# For engpc
+vendor.flag.engpc.onemodem.enable       u:object_r:vendor_engpc_prop:s0
+vendor.flag.sys.usb.config              u:object_r:vendor_engpc_prop:s0
+vendor.ro.bootmode                      u:object_r:vendor_engpc_prop:s0
+persist.vendor.modem.log_dest           u:object_r:vendor_engpc_prop:s0
+persist.vendor.wcn.log_dest             u:object_r:vendor_engpc_prop:s0
+ro.vendor.modem.support                 u:object_r:vendor_engpc_prop:s0
+vendor.flag.engpc.restart               u:object_r:vendor_engpc_prop:s0
+
+persist.vendor.gnss.tool.test           u:object_r:vendor_engpc_prop:s0
+#line 1 "device/sprd/mpool/module/nhmonitor/msepolicy/vendor/property_contexts"
+# For nhMonitor
+persist.vendor.nhmonitor   u:object_r:vendor_nhmonitor_prop:s0
+#line 1 "vendor/sprd/partner/chipone/sepolicy/property_contexts"
+vendor.fp.device u:object_r:vendor_fp_prop:s0
+#line 1 "vendor/tinno/common/keymaster_flag/sepolicy/vendor/property_contexts"
+vendor.googlekey.status u:object_r:vendor_master_flag_prop:s0
+vendor.widevine.status u:object_r:vendor_master_flag_prop:s0
+#line 1 "vendor/sprd/proprietories-source/sprdtrusty/vendor/sprd/modules/common/sepolicy_androidr/property_contexts"
+vendor.sprd.storageproxyd.                    u:object_r:vendor_storageproxyd_default_prop:s0
+#line 1 "vendor/sprd/nxp/sepolicy/property_contexts"
+# NFC properties
+persist.vendor.nfc.            u:object_r:vendor_nfc_prop:s0
+
+#line 1 "vendor/tinno/product/common_req/moto/sepolicy/non_plat/property_contexts"
+#Add by chongxin.cheng for PBGAM-656 : MOTO SIMLOCK
+#ro.boot.cpuid       u:object_r:vendor_radio_prop:s0
+#ro.boot.sim_number  u:object_r:vendor_radio_prop:s0
+#ro.boot.sim_lock    u:object_r:vendor_radio_prop:s0
+#line 1 "system/sepolicy/reqd_mask/property_contexts"
+# empty property_contexts file - this file is used to generate an empty
+# non-platform property context for devices without any property_contexts
+# customizations.

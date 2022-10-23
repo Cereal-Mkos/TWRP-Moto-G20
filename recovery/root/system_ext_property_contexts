@@ -1,0 +1,148 @@
+#line 1 "device/sprd/mpool/sepolicy/system/private/property_contexts"
+qemu.                   u:object_r:qemu_prop:s0
+qemu.cmdline            u:object_r:qemu_cmdline:s0
+ro.emu.                 u:object_r:qemu_prop:s0
+ro.emulator.            u:object_r:qemu_prop:s0
+ro.radio.noril          u:object_r:radio_noril_prop:s0
+net.eth0.               u:object_r:net_eth0_prop:s0
+net.shared_net_ip       u:object_r:net_share_prop:s0
+apr.    u:object_r:system_prop:s0
+persist.apr.    u:object_r:system_prop:s0
+persist.sys.apr.    u:object_r:system_prop:s0
+
+# porting for double-Tcard move to /system
+
+persist.ylog.   u:object_r:ylog_prop:s0
+ylog.   u:object_r:ylog_prop:s0
+media. u:object_r:media_prop:s0
+persist.bluetooth.disabledelayreports  u:object_r:media_prop:s0
+af.media.systemready.state u:object_r:system_prop:s0
+ro.audio.whale_hal u:object_r:system_prop:s0
+ro.audio.offload_wakelock u:object_r:system_prop:s0
+#line 1 "device/sprd/mpool/module/storage/msepolicy/system/private/property_contexts"
+persist.storage         u:object_r:vold_prop:s0
+sys.internal.emulated   u:object_r:vold_prop:s0
+#line 1 "vendor/tinno/product/common_req/moto/sepolicy/plat_private/property_contexts"
+#CJ for moto ota
+ro.serial               u:object_r:serialno_prop:s0
+ro.build.version.full   u:object_r:exported_default_prop:s0
+ro.oem.key1             u:object_r:exported_default_prop:s0
+ro.mot.build.           u:object_r:exported_default_prop:s0
+ro.hw.hwrev             u:object_r:exported2_default_prop:s0
+ro.bootloader           u:object_r:exported2_default_prop:s0
+blur.service.           u:object_r:exported2_default_prop:s0
+
+#CJ make sure system app can set it.
+persist.app.facebook.partnerid u:object_r:exported_system_prop:s0
+
+#ro.moto.factory.         u:object_r:exported_default_prop:s0
+
+#daichunwei add for GMS test
+ro.com.google.clientidbase.  u:object_r:exported3_default_prop:s0
+ro.mot.                      u:object_r:exported_config_prop:s0
+
+#weihui.pang add for GMS test
+ro.feature. u:object_r:exported3_default_prop:s0
+
+#weihui.pang add for ClientID test
+ro.radio.clientid.default u:object_r:exported_radio_prop:s0
+ro.radio.clientid.first u:object_r:exported_radio_prop:s0
+
+#wangying add for MDIP PDFCCE-2041
+ro.csc.amazon.partnerid u:object_r:exported_default_prop:s0
+
+#wangying add for PhoneProtect EKJAVA-374
+ro.setupwizard.require_network u:object_r:exported_default_prop:s0
+ro.setupwizard.user_req_network u:object_r:exported_default_prop:s0
+
+#Add by chongxin.cheng for PBGAM-656 : MOTO SIMLOCK
+#ro.radio.simlock.state   u:object_r:exported2_radio_prop:s0
+
+#Add by chongxin.cheng for PBGAM-656 : MOTO SIMLOCK
+#ro.radio.chk.imei.state   u:object_r:exported2_radio_prop:s0
+
+#Add by chongxin.cheng for PBGAM-512 : save imeisv to ro.radio.imei.sv
+#ro.radio.imei.sv        u:object_r:exported2_radio_prop:s0
+
+#Add by chongxin.cheng for PBGAM-2355
+#ro.radio.home.imsi        u:object_r:exported2_radio_prop:s0
+#ro.radio.home.imsi.       u:object_r:exported2_radio_prop:s0
+
+#daming.cao,moto new add property
+#ro.vendor.product.name u:object_r:exported_default_prop:s0
+#ro.vendor.product.display u:object_r:exported_default_prop:s0
+#gang.an,PBGAM-4072,amazon requirement need add prop ro.csc.amazon.partnerid
+#ro.csc.amazon.partnerid u:object_r:exported_default_prop:s0
+#CJ moto ota reuqest
+ro.product.is_production u:object_r:exported2_config_prop:s0
+#line 1 "vendor/tinno/common/journey/sepolicy/private/property_contexts"
+# new define in android P
+persist.journey.           u:object_r:persist_debug_prop:s0
+persist.j.                 u:object_r:persist_debug_prop:s0
+persist.jcf.               u:object_r:persist_debug_prop:s0
+persist.jdf.               u:object_r:persist_debug_prop:s0
+persist.tcf.               u:object_r:persist_debug_prop:s0
+persist.tdf.               u:object_r:persist_debug_prop:s0
+
+sys.journey.               u:object_r:debug_prop:s0
+debug.journey.             u:object_r:debug_prop:s0
+
+journey.                   u:object_r:exported_config_prop:s0
+ro.journey.                u:object_r:exported_config_prop:s0
+ro.jcf.                    u:object_r:exported_config_prop:s0
+ro.j.                      u:object_r:exported_config_prop:s0
+
+ro.boot.journey.           u:object_r:exported_config_prop:s0
+
+# Add by chongxin.cheng for VFAAC-436 : get MFG date from PRODUCT_INFO
+ro.boot.mfd       u:object_r:vendor_radio_prop:s0
+
+# Add by chongxin.cheng for VFAAC-109
+ro.custom.build.version    u:object_r:vendor_radio_prop:s0
+
+# factory tool need it
+ro.internal.build.version    u:object_r:vendor_radio_prop:s0
+
+# tinno feature
+persist.pt.                u:object_r:persist_debug_prop:s0
+persist.feature.           u:object_r:persist_debug_prop:s0
+
+# bootanim shutdown & wait
+service.bootanim.          u:object_r:exported_system_prop:s0
+
+# we need every one read this
+persist.jdf.overlays.      u:object_r:debug_prop:s0
+
+# binder performance
+optimize.binder.           u:object_r:exported_system_prop:s0
+
+# we move all google client id to the vendor init rc 
+ro.com.google.clientidbase   u:object_r:exported3_default_prop:s0
+
+# mtk use this PRODUCT_PROPERTY_OVERRIDES += ro.telephony.sim.count=2 in vendor_init
+ro.telephony.sim.count       u:object_r:exported3_default_prop:s0
+
+# use by camera team
+#sys.yuv.                     u:object_r:mtkcam_prop:s0 
+#sys.plugin.                  u:object_r:mtkcam_prop:s0
+#plugin.dump.asd.             u:object_r:mtkcam_prop:s0
+#cam.dipsavefile.             u:object_r:mtkcam_prop:s0
+#audio.camerasound.           u:object_r:mtkcam_prop:s0
+
+# use by als
+persist.als.dbg              u:object_r:debug_prop:s0
+
+# mediacodec or called PQ
+mtk.vendor.omx.core.log      u:object_r:debug_prop:s0
+mtk.vdec.log                 u:object_r:debug_prop:s0
+
+# connsyslog
+vendor.pullfwlog             u:object_r:debug_prop:s0
+vendor.pullFWlog             u:object_r:debug_prop:s0
+
+# bsp requirement
+config.write.                u:object_r:config_prop:s0
+persist.config.write.        u:object_r:config_prop:s0
+
+#gang.an add for nfc
+nfc.debug.poll_mask            u:object_r:debug_prop:s0
