@@ -192,6 +192,7 @@ on boot
 on fs
     #mkdir /data/misc/bluedroid 0770 bluetooth net_bt_stack
     mkdir /data/misc/bluetooth 0770 system system
+    write /sys/class/android_usb/android0/enable 0
 
 on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
@@ -248,6 +249,8 @@ on post-fs-data
 
 on property:ro.debuggable=1
     write /sys/module/smsg/parameters/debug_enable 1
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
 
 on property:ro.bootmode=recovery
     class_start recovery
