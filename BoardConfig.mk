@@ -119,3 +119,8 @@ TW_INCLUDE_REPACKTOOLS := true
 TWRP_EVENT_LOGGING := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+
+# Kernel module loading
+TW_LOAD_VENDOR_MODULES := "incrementalfs.ko kheaders.ko trace_irqsoff_bytedancy.ko trace_noschedule_bytedancy.ko trace_runqlat_bytedancy.ko"
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
