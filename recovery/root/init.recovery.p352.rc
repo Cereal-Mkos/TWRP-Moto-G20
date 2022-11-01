@@ -1,2 +1,25 @@
 #add for board init.rc for recovery mode
 import /init.recovery.common.rc
+
+on boot
+    start health-hal-2-1
+    insmod /vendor/lib/modules/incrementalfs.ko
+    insmod /vendor/lib/modules/kheaders.ko
+    insmod /vendor/lib/modules/trace_irqsoff_bytedancy.ko
+    insmod /vendor/lib/modules/trace_noschedule_bytedancy.ko
+    insmod /vendor/lib/modules/trace_runqlat_bytedancy.ko                
+    start load_ts_firmware
+
+on post-fs
+    start boot-hal-1-1
+
+on property:ro.crypto.type=file
+    setprop ro.crypto.state encrypted
+    setprop twrp.apex.loaded true
+
+service load_ts_firmware /system/bin/load_ts_firmware.sh
+    oneshot
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
