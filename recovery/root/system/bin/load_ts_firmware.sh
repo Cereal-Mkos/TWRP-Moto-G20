@@ -30,7 +30,7 @@ wait_for_poweron()
 cd $firmware_path
 touch_product_string=$(ls $touch_class_path)
 if [[ -d /sys/touchscreen/driver/spi2.2/of_node ]]; then
-       echo "focaltech"
+       echo "compatible"
        firmware_file="focaltech-FT5x46.bin"
        touch_path=/sys$(cat $touch_class_path/$touch_product_string/path | awk '{print $1}')
        wait_for_poweron
@@ -38,12 +38,10 @@ if [[ -d /sys/touchscreen/driver/spi2.2/of_node ]]; then
        echo 1 > $touch_path/forcereflash
        sleep 5
        echo 1 > $touch_path/reset
-elif [[ -d sys/touchscreen/ts_suspend ]]; then
-       echo "0"
-elif [[ -d /sys/class/touchscreen/xxx ]]; then
-        echo "chipone"
-        chipone_fw_path=/vendor/firmware/xxx.bin
-        flash_path=/sys/chipone-tddi/cts_firmware
+elif [[ -d /sys/touchscreen/driver/spi2.2/of_node ]]; then
+        echo "focaltech"
+        chipone_fw_path=/vendor/firmware/focaltech-FT5x46.bin
+        flash_path=/sys/touchscreen/driver/spi2.2/of_node
         sleep 2
         echo $chipone_fw_path > $flash_path/update_from_file
 fi
