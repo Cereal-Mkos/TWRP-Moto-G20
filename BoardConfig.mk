@@ -47,6 +47,7 @@ TARGET_BOOTLOADER_BOARD_NAME := p352
 TARGET_NO_BOOTLOADER := true
 
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/twrp.fstab
 
 # Display
 TARGET_SCREEN_DENSITY := 280
