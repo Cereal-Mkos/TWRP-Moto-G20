@@ -38,6 +38,8 @@ if [[ -d /sys/touchscreen/driver/spi2.2/of_node ]]; then
        echo 1 > $touch_path/forcereflash
        sleep 5
        echo 1 > $touch_path/reset
+elif [[ -d sys/touchscreen/ts_suspend ]]; then
+       echo "0"
 elif [[ -d /sys/class/touchscreen/xxx ]]; then
         echo "chipone"
         chipone_fw_path=/vendor/firmware/xxx.bin
