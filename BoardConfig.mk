@@ -49,6 +49,8 @@ TARGET_NO_BOOTLOADER := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/twrp.fstab
 
+BOARD_USES_METADATA_PARTITION := true
+
 # Display
 TARGET_SCREEN_DENSITY := 280
 
