@@ -371,6 +371,7 @@ persist.vendor.modem.log_dest=0
 persist.vendor.wcn.log_dest=0
 persist.vendor.sys.modemreset=1
 persist.vendor.sys.modem.save_dump=0
+vendor.gatekeeper.disable_spu=true
 ro.vendor.modem.dev=/proc/cptl/
 ro.vendor.modem.tty=/dev/stty_lte
 ro.vendor.modem.eth=seth_lte
