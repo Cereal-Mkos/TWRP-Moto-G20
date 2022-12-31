@@ -39,14 +39,14 @@
 /persist               emmc     /dev/block/by-name/persist               flags=display=persist;backup=1;flashimg=1
 /logo                  emmc     /dev/block/by-name/logo                  flags=display=logo;backup=1;flashimg=1
 /fbootlogo             emmc     /dev/block/by-name/fbootlogo             flags=display=fbootlogo;backup=1;flashimg=1
-/system                ext4     system                                   flags=display=system;logical;slotselect;backup=1
-/system_ext            ext4     system_ext                               flags=display=system_ext;logical;slotselect;backup=1
-/vendor                ext4     vendor                                   flags=display=vendor;logical;slotselect;backup=1
-/product               ext4     product                                  flags=display=product;logical;slotselect;backup=1
+/system                ext4     system                                   flags=display=system;logical;slotselect;backup=1;flashimg=1
+/system_ext            ext4     system_ext                               flags=display=system_ext;logical;slotselect;backup=1;flashimg=1
+/vendor                ext4     vendor                                   flags=display=vendor;logical;slotselect;backup=1;flashimg=1
+/product               ext4     product                                  flags=display=product;logical;slotselect;backup=1;flashimg=1
 /metadata              ext4     /dev/block/by-name/metadata              flags=display=metadata;backup=1
 /socko                 ext4     /dev/block/by-name/socko                 flags=display=socko;slotselect;backup=1;flashimg=1
 /odmko                 ext4     /dev/block/by-name/odmko                 flags=display=odmko;slotselect;backup=1;flashimg=1
-/data              f2fs     /dev/block/by-name/userdata	flags=decryptable=/dev/block/by-name/userdata
+/data                  f2fs     /dev/block/by-name/userdata	             flags=decryptable=/dev/block/by-name/userdata
 /mnt/vendor            ext4     /dev/block/by-name/prodnv                flags=display=vendor;backup=1;flashimg=1
-/external_sd      vfat     /dev/block/mmcblk1p1  /dev/block/mmcblk1            flags=display="external_sd";storage;wipeingui;removable;fsflags="utf8"
-/usb-otg          vfat     /dev/block/sda1  /dev/block/sda                     flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8"
+/external_sd           vfat     /dev/block/mmcblk1p1  /dev/block/mmcblk1   flags=display="external_sd";storage;wipeingui;removable;fsflags="utf8"
+/usb-otg               vfat     /dev/block/sda1  /dev/block/sda          flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8"
