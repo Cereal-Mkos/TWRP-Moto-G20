@@ -1,0 +1,49 @@
+on factorytest
+    mount_all /vendor/etc/fstab.factorytest
+    mount tmpfs tmpfs /data mode=0777
+
+    trigger load_persist_props_action
+
+    setprop sys.usb.configfs 1
+
+    trigger factorytest-fs
+    trigger factorytest-start
+
+on factorytest-fs
+    chmod 0775 /mnt/vendor
+    chown system system /mnt/vendor
+    chmod 0771 /data
+    restorecon /data
+
+    mkdir /data/vendor 0751 root root
+    mkdir /data/vendor/local 0751 root root
+    mkdir /data/vendor/local/media 0770 audioserver system
+    mkdir /data/vendor/local/media/audio_params 0770 audioserver audio
+    chown audioserver audio /sys/devices/platform/audiocp_boot/agdsp
+    chown audioserver audio /sys/devices/platform/audiocp_boot/ldinfo
+    chown audioserver audio /sys/devices/platform/audiocp_boot/start
+    chown audioserver audio /sys/devices/platform/audiocp_boot/status
+    chown audioserver audio /sys/devices/platform/audiocp_boot/stop
+    chown audioserver audio /dev/block/by-name/l_agdsp
+    chown audioserver audio /dev/audio_pipe
+    chmod 660   /dev/audio_pipe
+    chmod 666   /dev/audio_dsp_log
+    chmod 666   /dev/audio_dsp_pcm
+    chmod 666   /dev/audio_dsp_mem
+    chmod 660   /dev/audio_pipe_effect
+    chmod 660   /dev/audio_pipe_recordproc
+    chmod 660   /dev/audio_pipe_voice
+    chown  audioserver audio  /dev/audio_dsp_log
+    chown  audioserver audio  /dev/audio_dsp_pcm
+    chown  audioserver audio  /dev/audio_dsp_mem
+    chown  audioserver audio  /dev/audio_pipe_effect
+    chown  audioserver audio  /dev/audio_pipe_recordproc
+    chown  audioserver audio  /dev/audio_pipe_voice
+#Add for TP
+    insmod ${ro.vendor.ko.mount.point}/socko/synaptics_dsx_td4310.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/akm4377.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/ssd20xx_ts.ko
+
+on factorytest-start
+    start vendor.refnotify
+    start console
