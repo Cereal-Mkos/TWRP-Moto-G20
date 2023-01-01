@@ -1,0 +1,12 @@
+on property:journey.ssr.restart_level=*
+    setprop persist.vendor.ssr.restart_level ${journey.ssr.restart_level}
+
+on property:journey.ssr.enable_ramdumps=*
+    setprop persist.vendor.ssr.enable_ramdumps ${journey.ssr.enable_ramdumps}
+
+# fukang.li add for nfc device node
+on init
+    mkdir /data/vendor/nfc 0777 nfc nfc
+    mkdir /data/vendor/nfc/param 0777 nfc nfc
+    chmod 0660 /dev/pn557
+    chown nfc nfc /dev/pn557

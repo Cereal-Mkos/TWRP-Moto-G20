@@ -1,0 +1,10 @@
+# Change smartPA driver nodes to 777 for factory smartPA test
+on post-fs && property:ro.boot.journey.factory=1
+    chmod 0777 /sys/bus/i2c/drivers/aw881xx_smartpa/4-0034/re
+    chmod 0777 /sys/bus/i2c/drivers/aw881xx_smartpa/4-0034/rw
+    chmod 0777 /sys/bus/i2c/drivers/aw881xx_smartpa/4-0034/f0
+    chmod 0777 /sys/bus/i2c/drivers/aw881xx_smartpa/4-0034/monitor
+    chmod 0777 /sys/bus/i2c/drivers/aw881xx_smartpa/4-0034/cali
+
+on post-fs-data
+    chmod 0664 /mnt/journey/journey_persist/misc/aw_cali.bin

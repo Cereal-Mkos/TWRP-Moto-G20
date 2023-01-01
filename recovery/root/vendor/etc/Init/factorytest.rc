@@ -1,0 +1,206 @@
+service vendor.factorytest /vendor/bin/factorytest
+    user root
+    group root input radio system sdcard_rw net_bt_admin wifi camera audio media graphics
+
+service console-ft /system/bin/sh
+    console
+    user root
+    group root
+    seclabel u:r:shell:s0
+
+on property:ro.bootmode=factorytest && property:init.svc.surfaceflinger=running
+    stop surfaceflinger
+
+on property:ro.bootmode=factorytest && property:init.svc.bootanim=running
+    stop bootanim
+
+on property:ro.bootmode=factorytest && property:init.svc.netd=running
+    stop netd
+
+on property:ro.bootmode=factorytest && property:init.svc.zygote=running
+    stop zygote
+
+on property:ro.bootmode=factorytest && property:init.svc.media=stopped
+    start media
+
+on property:ro.bootmode=factorytest && property:init.svc.vendor.hwcomposer-2-1=running
+    stop vendor.hwcomposer-2-1
+
+on property:persist.vendor.adbd.ready=true
+   start factorytest_adb
+   start vold
+
+service factorytest_adb /apex/com.android.adbd/bin/adbd --root_seclabel=u:r:su:s0
+    disabled
+    socket adbd stream 660 system system
+    seclabel u:r:adbd:s0
+
+#SPRD:use adb when debug version @{
+#@orig
+# Always start adbd on userdebug and eng builds
+on property:ro.bootmode=factorytest && property:ro.debuggable=1
+    write /sys/module/smsg/parameters/debug_enable 1
+    start factorytest_adb
+    start vold
+
+# Always start adbd on non-cali mode
+on property:ro.bootmode=factorytest && property:sys.usb.configfs=1 && property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb,vser,gser
+    write /config/usb_gadget/g1/idVendor 0x1782
+    write /config/usb_gadget/g1/idProduct 0x5d06
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_vser_gser"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    rm /config/usb_gadget/g1/configs/b.1/f6
+    rm /config/usb_gadget/g1/configs/b.1/f7
+    rm /config/usb_gadget/g1/configs/b.1/f8
+    rm /config/usb_gadget/g1/configs/b.1/f9
+    rm /config/usb_gadget/g1/configs/b.1/f10
+    rm /config/usb_gadget/g1/configs/b.1/f11
+
+    symlink /config/usb_gadget/g1/functions/ffs.adb  /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/vser.gs7 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/gser.gs0 /config/usb_gadget/g1/configs/b.1/f3
+
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    start factorytest_adb
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:ro.bootmode=factorytest && property:sys.usb.configfs=1 && property:sys.usb.config=adb,vser,gser && property:ro.debuggable=0
+    write /config/usb_gadget/g1/idVendor 0x1782
+    write /config/usb_gadget/g1/idProduct 0x5d06
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_vser_gser"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    rm /config/usb_gadget/g1/configs/b.1/f6
+    rm /config/usb_gadget/g1/configs/b.1/f7
+    rm /config/usb_gadget/g1/configs/b.1/f8
+    rm /config/usb_gadget/g1/configs/b.1/f9
+    rm /config/usb_gadget/g1/configs/b.1/f10
+    rm /config/usb_gadget/g1/configs/b.1/f11
+
+    symlink /config/usb_gadget/g1/functions/ffs.adb  /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/vser.gs7 /config/usb_gadget/g1/configs/b.1/f2
+    symlink /config/usb_gadget/g1/functions/gser.gs0 /config/usb_gadget/g1/configs/b.1/f3
+
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    start factorytest_adb
+    setprop sys.usb.state ${sys.usb.config}
+
+on factorytest
+    chmod 666 /sys/module/firmware_class/parameters/path
+    chmod 666 /sys/module/shub_core/parameters/gryo_firms
+    chmod 666 /sys/module/shub_core/parameters/acc_firms
+    chmod 666 /sys/module/shub_core/parameters/mag_firms
+    chmod 666 /sys/module/shub_core/parameters/light_firms
+    chmod 666 /sys/module/shub_core/parameters/prox_firms
+    chmod 666 /sys/module/shub_core/parameters/pressure_firms
+    chmod 666 /sys/module/shub_core/parameters/sensor_fusion_mode
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/op_download
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/iio
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/iio/trigger/current_trigger
+    chown system system /sys/bus/iio/devices/trigger0/name
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/op_download
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/iio
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/iio/trigger/current_trigger
+    chmod 660 /sys/bus/iio/devices/trigger0/name
+
+#trigger by /vendor/etc/init/hw/init.factorytest.rc
+on factorytest-start
+    #support sensorhub factorytest start
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/batch
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/logctl
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/calibrator_cmd
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/calibrator_data
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/enable
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/flush
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/version
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/mag_cali_flag
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/sensorhub
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/raw_data_als
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/raw_data_ps
+    chown system system /sys/class/sprd_sensorhub/sensor_hub/light_sensor_calibrator
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/batch
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/logctl
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/calibrator_cmd
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/calibrator_data
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/enable
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/flush
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/version
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/mag_cali_flag
+    chmod 660 /sys/class/sprd_sensorhub/sensor_hub/sensorhub
+    chmod 666 /sys/class/sprd_sensorhub/sensor_hub/raw_data_als
+    chmod 666 /sys/class/sprd_sensorhub/sensor_hub/raw_data_ps
+    chmod 666 /sys/class/sprd_sensorhub/sensor_hub/light_sensor_calibrator
+    mkdir /mnt/vendor/sensorhub 0777 system root
+    mkdir /mnt/vendor/productinfo 0771 system root
+    mkdir /mnt/vendor/productinfo/sensor_calibration_data 0770 system root
+#support sensorhub factorytest end
+    chown system system /sys/bus/iio/devices/iio:device1/buffer
+    chown system system /sys/bus/iio/devices/iio:device1/buffer/length
+    chown system system /sys/bus/iio/devices/iio:device1/buffer/enable
+    chown system system /sys/bus/iio/devices/iio:device1/trigger/current_trigger
+    chmod 660 /sys/bus/iio/devices/iio:device1/buffer/length
+    chmod 660 /sys/bus/iio/devices/iio:device1/buffer/enable
+    chmod 660 /sys/bus/iio/devices/iio:device1/trigger/current_trigger
+    chown system system /dev/iio:device1
+# sensor(non-sensorhub) file attribute modify
+    mkdir /mnt/vendor/productinfo/acc_sensor_calibration 0770 system root
+    chown system root /mnt/vendor/productinfo/acc_sensor_calibration/x_axis_offset
+    chown system root /mnt/vendor/productinfo/acc_sensor_calibration/y_axis_offset
+    chown system root /mnt/vendor/productinfo/acc_sensor_calibration/z_axis_offset
+    chmod 660 /mnt/vendor/productinfo/acc_sensor_calibration/x_axis_offset
+    chmod 660 /mnt/vendor/productinfo/acc_sensor_calibration/y_axis_offset
+    chmod 660 /mnt/vendor/productinfo/acc_sensor_calibration/z_axis_offset
+
+    class_start early_hal
+    class_start hal
+#add wifi start
+    mkdir /data/vendor/wifi/ 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    write /data/vendor/wifi/fwpath sta_mode
+    chmod 660 /data/vendor/wifi/fwpath
+    chown wifi wifi /data/vendor/wifi/fwpath
+    setprop wifi.interface wlan0
+#add wifi end
+    start sensors-hal-1-0
+    start vendor.sensors-hal-1-0
+    setprop persist.ylog.enabled 1
+    setprop sys.usb.config adb,vser,gser
+    setprop sys.usb.configfs 1
+    start ylog
+    start slogmodem
+    start hwservicemanager
+    start console-ft
+    start debuggerd
+    start debuggerd64
+    chmod 0660 /dev/block/mmcblk0p26
+    chown system system /dev/block/mmcblk0p26
+    start vendor.modem_control
+    start logd
+    start gnss_download
+    start audioserver
+    #start media
+    start wcnd
+    start wcnd_eng
+    start gpsd
+    start servicemanager
+    start wificond
+    insmod ${ro.vendor.ko.mount.point}/socko/sprdbt_tty.ko
+    chmod 660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_admin /sys/class/rfkill/rfkill0/state
+    chmod 660 /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_admin /sys/class/rfkill/rfkill0/type
+    insmod ${ro.vendor.ko.mount.point}/socko/sprd_fm.ko
+    chmod 0666 /dev/adf-interface0.0
+    chmod 0666 /dev/adf-overlay-engine0.0
+    chmod 0666 /dev/adf0
+    #stop vendor.hwcomposer-2-1
+    write /sys/touchscreen/ts_suspend 0
+    start vendor.factorytest

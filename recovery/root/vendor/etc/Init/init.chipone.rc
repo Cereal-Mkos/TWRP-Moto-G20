@@ -1,0 +1,12 @@
+on post-fs
+# insmod /vendor/lib/modules/chipone_fp.ko
+#	insmod /vendor/lib64/modules/chipone_fp.ko
+	insmod ${ro.vendor.ko.mount.point}/socko/chipone_fp.ko
+on factorytest
+    insmod ${ro.vendor.ko.mount.point}/socko/chipone_fp.ko
+    
+on post-fs-data
+#add for chipone fingerprint
+	chmod 0777 /dev/fpsensor   
+	chown system system /dev/fpsensor
+
