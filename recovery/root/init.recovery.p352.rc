@@ -1,22 +1,30 @@
 #add for board init.rc for recovery mode
 import /init.recovery.common.rc
 
-on boot
-    start health-hal-2-1
-    insmod /vendor/lib/modules/1.1/focaltech-FT5x46.ko
-    insmod /vendor/lib/modules/incrementalfs.ko
-    insmod /vendor/lib/modules/kheaders.ko
-    insmod /vendor/lib/modules/trace_irqsoff_bytedancy.ko
-    insmod /vendor/lib/modules/trace_noschedule_bytedancy.ko
-    insmod /vendor/lib/modules/trace_runqlat_bytedancy.ko                
-    start load_ts_firmware
-
-on post-fs
+on init
     start boot-hal-1-1
 
-service load_ts_firmware /system/bin/load_ts_firmware.sh
-    oneshot
+    # Create location for fs_mgr to store abbreviated output from filesystem
+    # checker programs.
+    mkdir /dev/fscklogs 0770 root system
+
+on boot
+    setprop sys.usb.config adb
+
+on fs
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
+    # Set fscklog permission
+    chown root system /dev/fscklogs/log
+    chmod 0770 /dev/fscklogs/log
+    start load_ts_firmware
+
+service load_ts_firmware /vendor/bin/load_ts_firmware.sh
     user root
     group root
+    oneshot
     disabled
     seclabel u:r:recovery:s0
+  
+  
