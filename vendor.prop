@@ -1,0 +1,6 @@
+# Fastbootd
+ro.fastbootd.available=true
+
+# Retrofit Dynamic Partition
+ro.boot.dynamic_partitions=true
+ro.boot.dynamic_partitions_retrofit=true

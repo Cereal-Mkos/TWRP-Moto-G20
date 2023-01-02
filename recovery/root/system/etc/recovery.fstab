@@ -33,7 +33,6 @@
 
 /dev/block/by-name/socko                 /socko              ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc    wait,check,slotselect
 /dev/block/by-name/odmko                 /odmko              ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc    wait,check,slotselect
-/dev/block/by-name/userdata              /data               f2fs    noatime,nosuid,nodev,discard,inline_xattr,inline_data latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption,reservedsize=128M,checkpoint=fs,formattable
+/dev/block/by-name/userdata              /data               f2fs    noatime,nosuid,nodev,discard,inline_xattr,inline_data latemount,wait,check,keydirectory=/metadata/vold/metadata_encryption,reservedsize=128M,checkpoint=fs,formattable
 /dev/block/by-name/prodnv                /mnt/vendor         ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc     wait,check
-/external_sd	    vfat  /dev/block/mmcblk1p1	/dev/block/mmcblk1			     flags=display="External SDcard";storage;wipeingui;removable;backup=0
-/usbotg	            vfat  /dev/block/sda1		/dev/block/sda				     flags=display="Usb-Otg";storage;removable;backup=0
+/dev/block/mmcblk1p1                     /storage/sdcard0    vfat    defaults    defaults
