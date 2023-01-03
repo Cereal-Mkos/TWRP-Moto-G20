@@ -1,0 +1,9 @@
+on boot
+    start runatboot
+
+service runatboot /system/bin/runatboot.sh
+    oneshot
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
