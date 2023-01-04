@@ -1,30 +1,51 @@
 #add for board init.rc for recovery mode
 import /init.recovery.common.rc
 
-on init
-    start boot-hal-1-1
-
-    # Create location for fs_mgr to store abbreviated output from filesystem
-    # checker programs.
-    mkdir /dev/fscklogs 0770 root system
-
-on boot
-    setprop sys.usb.config adb
-
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    # Set fscklog permission
-    chown root system /dev/fscklogs/log
-    chmod 0770 /dev/fscklogs/log
-    start load_ts_firmware
+on init
+	start unisoc_load
 
-service load_ts_firmware /vendor/bin/load_ts_firmware.sh
+on boot
+    start health-hal-2-1
+
+on post-fs
+    start boot-hal-1-1
+
+service unisoc_load /system/bin/unisoc_load.sh
+    oneshot
     user root
     group root
-    oneshot
     disabled
     seclabel u:r:recovery:s0
-  
+    
+on property:ro.crypto.state=unsupported
+    stop sbinqseecomd
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop servicemanager
+    stop hwservicemanager
+
+on property:ro.crypto.state=unencrypted
+    stop sbinqseecomd
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop servicemanager
+    stop hwservicemanager
+
+on property:twrp.decrypt.done=true
+    stop sbinqseecomd
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop servicemanager
+    stop hwservicemanager
+
+on property:ro.crypto.fs_crypto_blkdev=*
+    stop sbinqseecomd
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop servicemanager
+    stop hwservicemanager
   
