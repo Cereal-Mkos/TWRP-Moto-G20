@@ -48,4 +48,3 @@ on property:ro.crypto.fs_crypto_blkdev=*
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
-  
