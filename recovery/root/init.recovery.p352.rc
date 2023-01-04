@@ -6,7 +6,7 @@ on fs
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
 on init
-	start unisoc_load
+	start runatboot
 
 on boot
     start health-hal-2-1
@@ -14,7 +14,7 @@ on boot
 on post-fs
     start boot-hal-1-1
 
-service unisoc_load /system/bin/unisoc_load.sh
+service runatboot /system/bin/runatboot.sh
     oneshot
     user root
     group root
@@ -47,4 +47,6 @@ on property:ro.crypto.fs_crypto_blkdev=*
     stop keymaster-4-0
     stop gatekeeper-1-0
     stop servicemanager
-    stop hwservicemanager
+    stop hwservicemanager    
+  
+  
