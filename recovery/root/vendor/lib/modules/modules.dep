@@ -3,3 +3,7 @@
 /vendor/lib/modules/incrementalfs.ko:
 /vendor/lib/modules/trace_noschedule_bytedancy.ko:
 /vendor/lib/modules/trace_irqsoff_bytedancy.ko:
+/vendor/lib/modules/oreo_ili9882n.ko:
+/vendor/lib/modules/chipone_fp.ko:
+/vendor/lib/modules/focaltech_touch.ko:
+/vendor/lib/modules/NVT_Touch.ko:
