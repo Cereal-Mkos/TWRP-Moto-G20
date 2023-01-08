@@ -29,8 +29,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-service
 
 PRODUCT_PACKAGES += \
-    bootctrl.ums512 \
-    bootctrl.ums512.recovery
+    bootctrl.unisoc \
+    bootctrl.unisoc.recovery
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
